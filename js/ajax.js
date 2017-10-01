@@ -33,8 +33,7 @@ Search.prototype.loadData = function () {
       self.data = JSON.parse(response);
       self.renderData();
       } 
-    }
-     
+    } 
 };
 
 
@@ -69,5 +68,3 @@ Search.prototype.check = function () {
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
 
  // searchHomePage.loadData();   
-
-

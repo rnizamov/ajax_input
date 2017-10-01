@@ -35,27 +35,22 @@ Search.prototype.loadData = function () {
     }
 };
 
- 
 
 Search.prototype.renderData = function () {
   var self = this;
-  this.data.forEach(function(element,i) {
-    if (element.name.includes(self.input.value)) {
-      self.arrLi.push(document.createElement('li'));
-      self.arrLi[i].innerHTML = element.name;
-      self.arrLi[i].style.display = "none";
-    }
-  });
-  this.arrLi.forEach(function(element) {
-    self.result.appendChild(element);
+  this.data.forEach(function(element,i) {     
+    self.arrLi.push(document.createElement('li'));
+    self.arrLi[i].innerHTML = element.name;
+    self.arrLi[i].style.display = "none";   
+    self.result.appendChild(self.arrLi[i]) 
   });
 };
 
 Search.prototype.filterDada = function () {  
   for (var i = 0; i < this.arrLi.length; i++) {
-      var str = this.arrLi[i].innerHTML.toUpperCase();
-      var subStr = this.input.value.toUpperCase();
-      if (str.includes(subStr)) {
+      var str = this.arrLi[i].innerHTML.trim().toUpperCase();
+      var subStr = this.input.value.trim().toUpperCase();
+      if (str.includes(subStr) && !!subStr.trim() ) {
          this.result.children[i].style.display = "block";
       } else {
          this.result.children[i].style.display = "none";
@@ -67,8 +62,9 @@ var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/user
 
 searchHomePage.loadData();
 
-searchHomePage.input.onchange = function() { 
+searchHomePage.input.onchange = function(event) { 
   searchHomePage.filterDada();
+  console.log(event);
 };
  
  

@@ -12,7 +12,7 @@ function Search(xhr,url,inputId,resultId) {
   this.list='';
   this.input = document.getElementById(inputId);
   this.result = document.getElementById(resultId);
-}
+};
 
 // Общие методы для экземпляров Search
 // Метод loadData подгружает данные в формате JSON и парсит их. 
@@ -33,28 +33,23 @@ Search.prototype.loadData = function () {
       self.renderData();
       } 
     }
-   
-}
+};
 
  
 
 Search.prototype.renderData = function () {
   var self = this;
-
   this.data.forEach(function(element,i) {
-     if (element.name.includes(self.input.value)) {
-        self.arrLi.push(document.createElement('li'));
-        self.arrLi[i].innerHTML = element.name;
-        self.arrLi[i].style.display = "none";
-     }
+    if (element.name.includes(self.input.value)) {
+      self.arrLi.push(document.createElement('li'));
+      self.arrLi[i].innerHTML = element.name;
+      self.arrLi[i].style.display = "none";
+    }
   });
-
   this.arrLi.forEach(function(element) {
     self.result.appendChild(element);
-
   });
-  
-}
+};
 
 Search.prototype.filterDada = function () {  
   for (var i = 0; i < this.arrLi.length; i++) {
@@ -66,7 +61,7 @@ Search.prototype.filterDada = function () {
          this.result.children[i].style.display = "none";
       }
   }
-}
+};
 
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
 

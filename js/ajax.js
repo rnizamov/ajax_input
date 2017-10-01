@@ -33,6 +33,7 @@ Search.prototype.loadData = function () {
       self.renderData();
       } 
     }
+    return this;
 };
 
 
@@ -44,6 +45,7 @@ Search.prototype.renderData = function () {
     self.arrLi[i].style.display = "none";   
     self.result.appendChild(self.arrLi[i]) 
   });
+  this.check();
 };
 
 Search.prototype.filterDada = function () {  
@@ -58,13 +60,19 @@ Search.prototype.filterDada = function () {
   }
 };
 
+Search.prototype.check = function ( ) {
+  var self = this;
+  this.input.onchange = function(event) { 
+    self.filterDada();
+  };
+  this.input.onkeyup = function(event) { 
+    self.filterDada();
+  }; 
+
+}
+
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
 
 searchHomePage.loadData();
 
-searchHomePage.input.onchange = function(event) { 
-  searchHomePage.filterDada();
-  console.log(event);
-};
- 
- 
+

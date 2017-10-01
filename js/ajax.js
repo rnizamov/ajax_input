@@ -12,6 +12,7 @@ function Search(xhr,url,inputId,resultId) {
   this.list='';
   this.input = document.getElementById(inputId);
   this.result = document.getElementById(resultId);
+  this.loadData();
 };
 
 // Общие методы для экземпляров Search
@@ -33,7 +34,7 @@ Search.prototype.loadData = function () {
       self.renderData();
       } 
     }
-    return this;
+     
 };
 
 
@@ -48,10 +49,11 @@ Search.prototype.renderData = function () {
   this.check();
 };
 
-Search.prototype.filterDada = function () {  
+Search.prototype.filterDada = function () { 
+  var subStr = this.input.value.trim().toUpperCase();
   for (var i = 0; i < this.arrLi.length; i++) {
-      var str = this.arrLi[i].innerHTML.trim().toUpperCase();
-      var subStr = this.input.value.trim().toUpperCase();
+      
+      var str = this.arrLi[i].innerHTML.trim().toUpperCase();     
       if (str.includes(subStr) && !!subStr.trim() ) {
          this.result.children[i].style.display = "block";
       } else {
@@ -60,19 +62,13 @@ Search.prototype.filterDada = function () {
   }
 };
 
-Search.prototype.check = function ( ) {
+Search.prototype.check = function () {
   var self = this;
-  this.input.onchange = function(event) { 
-    self.filterDada();
-  };
-  this.input.onkeyup = function(event) { 
-    self.filterDada();
-  }; 
-
+  this.input.addEventListener("keyup",function() { self.filterDada()});
 }
 
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
 
-searchHomePage.loadData();
+ // searchHomePage.loadData();   
 
 

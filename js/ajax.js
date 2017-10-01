@@ -56,9 +56,7 @@ Search.prototype.renderData = function () {
   
 }
 
-Search.prototype.filterDada = function () { 
-  var self = this;
-  console.log(this.arrLi.length);
+Search.prototype.filterDada = function () {  
   for (var i = 0; i < this.arrLi.length; i++) {
       var str = this.arrLi[i].innerHTML.toUpperCase();
       var subStr = this.input.value.toUpperCase();

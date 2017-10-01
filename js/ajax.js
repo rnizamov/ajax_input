@@ -1,30 +1,66 @@
-var data = [];
-var str = [];
-var input = document.getElementById("input");
-var li = document.querySelectorAll("li") 
-  function loadJSON() {
-    var xhr = new XMLHttpRequest();
-    var response ;
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-    xhr.send();
-    xhr.onreadystatechange = function() { 
-      if (xhr.readyState != 4) return;
+﻿// Создаю класс Search
+// Параметры:
+//  xhr - объект класса httpXmlrequest
+//  url - куда стучимся
+//  id текстового поля для поиска 
 
-      if (xhr.status != 200) {
-   
-      alert('Ошибка ' + xhr.status + ': ' + xhr.statusText);
+function Search(xhr,url,inputId,resultId) {
+  this.xhr;
+  this.url = url;
+  this.data;
+  this.arrLi=[];
+  this.list='';
+  this.input = document.getElementById(inputId);
+  this.result = document.getElementById(resultId);
+}
+
+// Общие методы для экземпляров Search
+// Метод loadData подгружает данные в формате JSON и парсит их. 
+
+Search.prototype.loadData = function () {
+  var self = this;
+  this.xhr = new XMLHttpRequest();
+  var response ;
+  this.xhr.open('GET', this.url, true);
+  this.xhr.send(); 
+  this.xhr.onreadystatechange = function() { 
+    if (this.readyState != 4) return;
+    if (this.status != 200) {
+    alert('Ошибка ' + this.status + ': ' + this.statusText);
     } else {
-    
-      response = xhr.responseText;
-      data = JSON.parse(response);
-      for ( var i = 0; i < data.length; i++) {
-        str[i] = data[i].name;
-        if (str[i].indexOf(input.value)) {
-          li[i].innerHTML = str[i];
-        }  else {
-          li[i].innerHTML = '';
-        }
-      }
-  }
+      response = this.responseText;
+      self.data = JSON.parse(response);
+      self.filterDada();
+      } 
+    }
+   
 }
+
+ 
+
+Search.prototype.renderData = function () {
+  var self = this;
+  this.arrLi.forEach(function(element) {
+    self.result.appendChild(element);
+  });
+  this.arrLi=[];
 }
+
+Search.prototype.filterDada = function () {
+  var self = this;
+  this.data.forEach(function(element,i) {
+     if (element.name.includes(self.input.value)) {
+        self.arrLi.push(document.createElement('li'));
+        self.arrLi[i].innerHTML = element.name;
+     }
+  });
+  this.renderData();
+ 
+}
+
+var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
+
+searchHomePage.loadData();
+
+ 
+ 

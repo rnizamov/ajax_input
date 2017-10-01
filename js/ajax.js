@@ -62,7 +62,7 @@ Search.prototype.filterDada = function () {
   for (var i = 0; i < this.arrLi.length; i++) {
       var str = this.arrLi[i].innerHTML.toUpperCase();
       var subStr = this.input.value.toUpperCase();
-      if ( (self.arrLi[i].tagName == "LI") && str.includes(subStr)) {
+      if (str.includes(subStr)) {
          this.result.children[i].style.display = "block";
       } else {
          this.result.children[i].style.display = "none";

@@ -52,7 +52,6 @@ Search.prototype.renderData = function () {
 Search.prototype.filterDada = function () { 
   var subStr = this.input.value.trim().toUpperCase();
   for (var i = 0; i < this.arrLi.length; i++) {
-      
       var str = this.arrLi[i].innerHTML.trim().toUpperCase();     
       if (str.includes(subStr) && !!subStr.trim() ) {
          this.result.children[i].style.display = "block";

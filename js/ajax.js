@@ -30,7 +30,7 @@ Search.prototype.loadData = function () {
     } else {
       response = this.responseText;
       self.data = JSON.parse(response);
-      self.filterDada();
+      self.renderData();
       } 
     }
    
@@ -40,27 +40,42 @@ Search.prototype.loadData = function () {
 
 Search.prototype.renderData = function () {
   var self = this;
-  this.arrLi.forEach(function(element) {
-    self.result.appendChild(element);
-  });
-  this.arrLi=[];
-}
 
-Search.prototype.filterDada = function () {
-  var self = this;
   this.data.forEach(function(element,i) {
      if (element.name.includes(self.input.value)) {
         self.arrLi.push(document.createElement('li'));
         self.arrLi[i].innerHTML = element.name;
+        self.arrLi[i].style.display = "none";
      }
   });
-  this.renderData();
- 
+
+  this.arrLi.forEach(function(element) {
+    self.result.appendChild(element);
+
+  });
+  
+}
+
+Search.prototype.filterDada = function () { 
+  var self = this;
+  console.log(this.arrLi.length);
+  for (var i = 0; i < this.arrLi.length; i++) {
+      var str = this.arrLi[i].innerHTML.toUpperCase();
+      var subStr = this.input.value.toUpperCase();
+      if ( (self.arrLi[i].tagName == "LI") && str.includes(subStr)) {
+         this.result.children[i].style.display = "block";
+      } else {
+         this.result.children[i].style.display = "none";
+      }
+  }
 }
 
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
 
 searchHomePage.loadData();
 
+searchHomePage.input.onchange = function() { 
+  searchHomePage.filterDada();
+};
  
  

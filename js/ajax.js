@@ -44,8 +44,8 @@ Search.prototype.renderData = function () {
   		li.textContent = element.name;
    	    li.style.display = "none";  
     	ulFragment.appendChild(li);   	     
-        self.result.appendChild(ulFragment); 
   });
+  self.result.appendChild(ulFragment); 
   this.check();
 };
 

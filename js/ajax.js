@@ -7,8 +7,7 @@
 function Search(xhr,url,inputId,resultId) {
   this.xhr;
   this.url = url;
-  this.data;
-  this.arrLi=[];
+  this.data; 
   this.list='';
   this.input = document.getElementById(inputId);
   this.result = document.getElementById(resultId);
@@ -39,19 +38,21 @@ Search.prototype.loadData = function () {
 
 Search.prototype.renderData = function () {
   var self = this;
-  this.data.forEach(function(element,i) {     
-    self.arrLi.push(document.createElement('li'));
-    self.arrLi[i].innerHTML = element.name;
-    self.arrLi[i].style.display = "none";   
-    self.result.appendChild(self.arrLi[i]) 
+  var ulFragment = document.createDocumentFragment();
+  this.data.forEach(function(element,i) { 
+  		var li = document.createElement('li');  
+  		li.textContent = element.name;
+   	    li.style.display = "none";  
+    	ulFragment.appendChild(li);   	     
+        self.result.appendChild(ulFragment); 
   });
   this.check();
 };
 
 Search.prototype.filterDada = function () { 
   var subStr = this.input.value.trim().toUpperCase();
-  for (var i = 0; i < this.arrLi.length; i++) {
-      var str = this.arrLi[i].innerHTML.trim().toUpperCase();     
+  for (var i = 0; i < this.data.length; i++) {
+      var str = this.data[i].name.trim().toUpperCase();     
       if (str.includes(subStr) && !!subStr.trim() ) {
          this.result.children[i].style.display = "block";
       } else {

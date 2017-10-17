@@ -63,7 +63,7 @@ Search.prototype.filterDada = function () {
 
 Search.prototype.check = function () {
   var self = this;
-  this.input.addEventListener("oninput",function() { self.filterDada()});
+  this.input.addEventListener("input",function() { self.filterDada()});
 }
 
 var searchHomePage = new Search('xhr','https://jsonplaceholder.typicode.com/users','inputHomePage','searchResult');
